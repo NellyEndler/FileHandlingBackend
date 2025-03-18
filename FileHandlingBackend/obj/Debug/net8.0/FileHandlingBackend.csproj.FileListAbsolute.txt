@@ -1,0 +1,7 @@
+D:\projekts\2025\FileHandling-Backend\FileHandlingBackend\FileHandlingBackend\obj\Debug\net8.0\FileHandlingBackend.csproj.AssemblyReference.cache
+D:\projekts\2025\FileHandling-Backend\FileHandlingBackend\FileHandlingBackend\obj\Debug\net8.0\FileHandlingBackend.GeneratedMSBuildEditorConfig.editorconfig
+D:\projekts\2025\FileHandling-Backend\FileHandlingBackend\FileHandlingBackend\obj\Debug\net8.0\FileHandlingBackend.AssemblyInfoInputs.cache
+D:\projekts\2025\FileHandling-Backend\FileHandlingBackend\FileHandlingBackend\obj\Debug\net8.0\FileHandlingBackend.AssemblyInfo.cs
+D:\projekts\2025\FileHandling-Backend\FileHandlingBackend\FileHandlingBackend\obj\Debug\net8.0\FileHandlingBackend.csproj.CoreCompileInputs.cache
+D:\projekts\2025\FileHandling-Backend\FileHandlingBackend\FileHandlingBackend\obj\Debug\net8.0\FileHandlingBackend.MvcApplicationPartsAssemblyInfo.cs
+D:\projekts\2025\FileHandling-Backend\FileHandlingBackend\FileHandlingBackend\obj\Debug\net8.0\FileHandlingBackend.MvcApplicationPartsAssemblyInfo.cache
