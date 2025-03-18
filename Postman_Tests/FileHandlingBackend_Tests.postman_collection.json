@@ -1,0 +1,2150 @@
+{
+	"info": {
+		"_postman_id": "23a35c3b-0c7a-4ea7-a3d0-b05873e1bc1a",
+		"name": "Vams2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40898418"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "CreateUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'true'\", function () {\r",
+									" pm.expect(pm.response.json()).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"postmanTest\",\r\n  \"email\": \"test@mail.se\",\r\n  \"password\": \"test123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}User/CreateUser",
+							"host": [
+								"{{URL}}User"
+							],
+							"path": [
+								"CreateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains valid tokens\",() => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.have.property(\"accessToken\").that.is.a(\"string\").and.is.not.empty;\r",
+									"    pm.expect(responseJson).to.have.property(\"refreshToken\").that.is.a(\"string\").and.is.not.empty;\r",
+									"    pm.environment.set(\"AccessToken\", responseJson.accessToken);\r",
+									"    pm.environment.set(\"RefreshToken\", responseJson.refreshToken);\r",
+									"    pm.environment.set(\"id\", responseJson.id);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"postmanTest\",\r\n  \"password\": \"test123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}User/LoginUser",
+							"host": [
+								"{{URL}}User"
+							],
+							"path": [
+								"LoginUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogoutUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}User/LogOutUser",
+							"host": [
+								"{{URL}}User"
+							],
+							"path": [
+								"LogOutUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Model",
+			"item": [
+				{
+					"name": "UpdateModel",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'true'\", function () {\r",
+									" pm.expect(pm.response.json()).to.eql(true);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"string\",\r\n  \"description\": \"string\",\r\n  \"tagString\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44343/api/Model/UpdateModel/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44343",
+							"path": [
+								"api",
+								"Model",
+								"UpdateModel",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WebPortal",
+			"item": [
+				{
+					"name": "Ping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 418\", function () {\r",
+									"  pm.response.to.have.status(418);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44343/api/WebPortal/Ping",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44343",
+							"path": [
+								"api",
+								"WebPortal",
+								"Ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PingDatabase",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'true'\", function () {\r",
+									" pm.expect(pm.response.json()).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}WebPortal/PingDB",
+							"host": [
+								"{{URL}}WebPortal"
+							],
+							"path": [
+								"PingDB"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UploadModel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}WebPortal/UploadModel",
+							"host": [
+								"{{URL}}WebPortal"
+							],
+							"path": [
+								"UploadModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllUserModels",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an array of WebModelDto objects\", function () {\r",
+									"    var responseJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseJson).to.be.an(\"array\");\r",
+									"\r",
+									"    pm.expect(responseJson.length).to.be.greaterThan(0);\r",
+									"\r",
+									"    responseJson.forEach(function (item) {\r",
+									"        pm.expect(item).to.have.property(\"Id\").that.is.a(\"number\").and.is.not.null.and.is.not.empty;\r",
+									"        pm.expect(item).to.have.property(\"Title\").that.is.a(\"string\").and.is.not.null.and.is.not.empty;\r",
+									"        pm.expect(item).to.have.property(\"Description\").that.is.a(\"string\").and.is.not.null.and.is.not.empty;\r",
+									"        pm.expect(item).to.have.property(\"TimeStamp\").that.is.a(\"DateTime\").and.is.not.null.and.is.not.empty;\r",
+									"        pm.expect(item).to.have.property(\"TagString\").that.is.a(\"string\");\r",
+									"        pm.expect(item).to.have.property(\"ModelGlbUrl\").that.is.a(\"string\").and.is.not.null.and.is.not.empty;\r",
+									"        pm.expect(item).to.have.property(\"PreviewUrl\").that.is.a(\"string\").and.is.not.null.and.is.not.empty;\r",
+									"        pm.expect(item).to.have.property(\"ModelUsdzUrl\").that.is.a(\"string\").and.is.not.null.and.is.not.empty;\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}WebPortal/GetAllUserModels?userID=1",
+							"host": [
+								"{{URL}}WebPortal"
+							],
+							"path": [
+								"GetAllUserModels"
+							],
+							"query": [
+								{
+									"key": "userID",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Complete Test Suite",
+			"item": [
+				{
+					"name": "Regular User",
+					"item": [
+						{
+							"name": "CreateUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"postmanTest\",\r\n  \"email\": \"test@mail.se\",\r\n  \"password\": \"test123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}User/CreateUser",
+									"host": [
+										"{{URL}}User"
+									],
+									"path": [
+										"CreateUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LoginUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains valid tokens\",() => {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson).to.have.property(\"accessToken\").that.is.a(\"string\").and.is.not.empty;\r",
+											"    pm.expect(responseJson).to.have.property(\"refreshToken\").that.is.a(\"string\").and.is.not.empty;\r",
+											"    pm.environment.set(\"AccessToken\", responseJson.accessToken);\r",
+											"    pm.environment.set(\"RefreshToken\", responseJson.refreshToken);\r",
+											"    pm.environment.set(\"UserId\", responseJson.userId);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"postmanTest\",\r\n  \"password\": \"test123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}User/LoginUser",
+									"host": [
+										"{{URL}}User"
+									],
+									"path": [
+										"LoginUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RefreshToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains valid tokens\",() => {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson).to.have.property(\"accessToken\").that.is.a(\"string\").and.is.not.empty;\r",
+											"    pm.expect(responseJson).to.have.property(\"refreshToken\").that.is.a(\"string\").and.is.not.empty;\r",
+											"    pm.environment.set(\"AccessToken\", responseJson.accessToken);\r",
+											"    pm.environment.set(\"RefreshToken\", responseJson.refreshToken);\r",
+											"    pm.environment.set(\"id\", responseJson.id);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"refreshToken\": \"{{RefreshToken}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}User/RefreshToken",
+									"host": [
+										"{{URL}}User"
+									],
+									"path": [
+										"RefreshToken"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UploadProfilePicture",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "postman-cloud:///1eff41e2-e2de-4290-8e4d-0f606cabb857"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}WebPortal/UploadProfilePicture",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"UploadProfilePicture"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetProfilePicture",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is a non-empty string\", function () {\r",
+											"    var responseData = pm.response.text();\r",
+											"    pm.expect(responseData).to.be.a(\"string\");\r",
+											"    pm.expect(responseData).to.not.be.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}WebPortal/GetProfilePicture?userID={{UserId}}",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"GetProfilePicture"
+									],
+									"query": [
+										{
+											"key": "userID",
+											"value": "{{UserId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetUserProfile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is a JSON object with expected properties\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData).to.have.property(\"userName\").that.is.a(\"string\");\r",
+											"    pm.expect(jsonData).to.have.property(\"email\").that.is.a(\"string\");\r",
+											"    pm.expect(jsonData).to.have.property(\"roleId\").that.is.a(\"number\");\r",
+											"    pm.expect(jsonData).to.have.property(\"joinedDate\").that.is.a(\"string\");\r",
+											"    pm.expect(jsonData).to.have.property(\"userModels\").that.is.a(\"number\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}WebPortal/GetUserProfile",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"GetUserProfile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UploadModel",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is a valid integer greater than 0\", function () {\r",
+											"    var responseData = pm.response.text();\r",
+											"    var modelId = parseInt(responseData, 10);\r",
+											"\r",
+											"    pm.expect(responseData).to.not.be.empty; \r",
+											"    pm.expect(modelId).to.be.a(\"number\");\r",
+											"    pm.expect(modelId).to.be.above(0);\r",
+											"    pm.environment.set(\"ModelId\", modelId);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Title",
+											"value": "TestModel",
+											"type": "text"
+										},
+										{
+											"key": "TagString",
+											"value": "model,test,pink",
+											"type": "text"
+										},
+										{
+											"key": "Description",
+											"value": "A test model for postman",
+											"type": "text"
+										},
+										{
+											"key": "ModelFile",
+											"type": "file",
+											"src": "postman-cloud:///1eff41e1-a4b3-4f70-baa3-59fa287ef607"
+										},
+										{
+											"key": "PreviewFile",
+											"type": "file",
+											"src": "postman-cloud:///1eff41e2-e2de-4290-8e4d-0f606cabb857"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}WebPortal/UploadModel",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"UploadModel"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateModel",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is 'true'\", function () {\r",
+											" pm.expect(pm.response.json()).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"TestModelUpdated\",\r\n  \"description\": \"An updated test model for postman\",\r\n  \"tagString\": \"model,pink,low poly\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}WebPortal/UpdateModel/{{ModelId}}",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"UpdateModel",
+										"{{ModelId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateModelIsPublic",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is 'true'\", function () {\r",
+											" pm.expect(pm.response.json()).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}WebPortal/UpdateModelIsPublic?isPublic=true&modelId={{ModelId}}",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"UpdateModelIsPublic"
+									],
+									"query": [
+										{
+											"key": "isPublic",
+											"value": "true"
+										},
+										{
+											"key": "modelId",
+											"value": "{{ModelId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"oldUsername\": \"postmanTest\",\r\n  \"oldEmail\": \"test@mail.se\",\r\n  \"newUsername\": \"postmanTestUpdated\",\r\n  \"newEmail\": \"test@mailUpdated.se\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}WebPortal/UpdateUser",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"UpdateUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FullGetHdrAssets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is an array of HdrAsset objects\", function () {\r",
+											"    var responseJson = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseJson).to.be.an(\"array\");\r",
+											"\r",
+											"    pm.expect(responseJson.length).to.be.greaterThan(0);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}WebPortal/FullGetHdrAssets?includeFileStream=false",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"FullGetHdrAssets"
+									],
+									"query": [
+										{
+											"key": "includeFileStream",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllUserModels",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is an array of WebModelDto objects\", function () {\r",
+											"    var responseJson = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseJson).to.be.an(\"array\");\r",
+											"\r",
+											"    pm.expect(responseJson.length).to.be.greaterThan(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}WebPortal/GetAllUserModels",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"GetAllUserModels"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllPublicModels",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is an array of WebModelDto objects\", function () {\r",
+											"    var responseJson = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseJson).to.be.an(\"array\");\r",
+											"\r",
+											"    pm.expect(responseJson.length).to.be.greaterThan(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}WebPortal/GetAllPublicModels",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"GetAllPublicModels"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchAndFilterModels",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is an array of WebModelDto objects\", function () {\r",
+											"    var responseJson = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseJson).to.be.an(\"array\");\r",
+											"\r",
+											"    pm.expect(responseJson.length).to.be.greaterThan(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}WebPortal/SearchAndFilterModels?searchString=test mod&filterTags=model&username=postmanTest",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"SearchAndFilterModels"
+									],
+									"query": [
+										{
+											"key": "searchString",
+											"value": "test mod"
+										},
+										{
+											"key": "filterTags",
+											"value": "model"
+										},
+										{
+											"key": "username",
+											"value": "postmanTest"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteModel",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}WebPortal/DeleteModel?id={{ModelId}}",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"DeleteModel"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{ModelId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}WebPortal/DeleteUser",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"DeleteUser"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin User",
+					"item": [
+						{
+							"name": "LoginAdmin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains valid tokens\",() => {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson).to.have.property(\"accessToken\").that.is.a(\"string\").and.is.not.empty;\r",
+											"    pm.expect(responseJson).to.have.property(\"refreshToken\").that.is.a(\"string\").and.is.not.empty;\r",
+											"    pm.environment.set(\"AccessToken\", responseJson.accessToken);\r",
+											"    pm.environment.set(\"RefreshToken\", responseJson.refreshToken);\r",
+											"    pm.environment.set(\"UserId\", responseJson.userId);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"JC\",\r\n  \"password\": \"qwerty\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}User/LoginUser",
+									"host": [
+										"{{URL}}User"
+									],
+									"path": [
+										"LoginUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllUsers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is an array of User objects\", function () {\r",
+											"    var responseJson = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseJson).to.be.an(\"array\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}AdminPortal/GetAllUsers",
+									"host": [
+										"{{URL}}AdminPortal"
+									],
+									"path": [
+										"GetAllUsers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllPermissionsForRoleByTitle",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is a JSON object with expected properties\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData).to.have.property(\"title\").that.is.a(\"string\");\r",
+											"    pm.expect(jsonData).to.have.property(\"teamRoleId\").that.is.a(\"number\");\r",
+											"    pm.expect(jsonData).to.have.property(\"permissions\").that.is.an(\"array\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}AdminPortal/GetAllPermissionsForRoleByTitle?title=member",
+									"host": [
+										"{{URL}}AdminPortal"
+									],
+									"path": [
+										"GetAllPermissionsForRoleByTitle"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "member"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllTeamRoles",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}AdminPortal/GetAllTeamRoles",
+									"host": [
+										"{{URL}}AdminPortal"
+									],
+									"path": [
+										"GetAllTeamRoles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllPermissionsForRoleById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is a JSON object with expected properties\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData).to.have.property(\"title\").that.is.a(\"string\");\r",
+											"    pm.expect(jsonData).to.have.property(\"teamRoleId\").that.is.a(\"number\");\r",
+											"    pm.expect(jsonData).to.have.property(\"permissions\").that.is.an(\"array\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}AdminPortal/GetAllPermissionsForRoleById?teamRoleId=2",
+									"host": [
+										"{{URL}}AdminPortal"
+									],
+									"path": [
+										"GetAllPermissionsForRoleById"
+									],
+									"query": [
+										{
+											"key": "teamRoleId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRole",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is a JSON object with expected properties\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData).to.have.property(\"id\").that.is.a(\"number\");\r",
+											"    pm.expect(jsonData).to.have.property(\"title\").that.is.a(\"string\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}Role/GetRole?id=2",
+									"host": [
+										"{{URL}}Role"
+									],
+									"path": [
+										"GetRole"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is a valid integer greater than 0\", function () {\r",
+											"    var responseData = pm.response.text();\r",
+											"    var UserId = parseInt(responseData, 10);\r",
+											"\r",
+											"    pm.expect(responseData).to.not.be.empty; \r",
+											"    pm.expect(UserId).to.be.a(\"number\");\r",
+											"    pm.expect(UserId).to.be.above(0);\r",
+											"    pm.environment.set(\"UserId\", UserId);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"postmanTest\",\r\n  \"email\": \"test@mail.se\",\r\n  \"password\": \"test123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}User/CreateUser",
+									"host": [
+										"{{URL}}User"
+									],
+									"path": [
+										"CreateUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"oldUsername\": \"postmanTest\",\r\n  \"oldEmail\": \"test@mail.se\",\r\n  \"newUsername\": \"UpdatedPostmanTest\",\r\n  \"newEmail\": \"testUpdated@mail.se\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}AdminPortal/UpdateUser/{{UserId}}",
+									"host": [
+										"{{URL}}AdminPortal"
+									],
+									"path": [
+										"UpdateUser",
+										"{{UserId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteAnyUser Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}AdminPortal/DeleteAnyUser?id={{UserId}}",
+									"host": [
+										"{{URL}}AdminPortal"
+									],
+									"path": [
+										"DeleteAnyUser"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{UserId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UploadModel To Update",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is a valid integer greater than 0\", function () {\r",
+											"    var responseData = pm.response.text();\r",
+											"    var modelId = parseInt(responseData, 10);\r",
+											"\r",
+											"    pm.expect(responseData).to.not.be.empty; \r",
+											"    pm.expect(modelId).to.be.a(\"number\");\r",
+											"    pm.expect(modelId).to.be.above(0);\r",
+											"    pm.environment.set(\"ModelId\", modelId);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Title",
+											"value": "TestModel",
+											"type": "text"
+										},
+										{
+											"key": "TagString",
+											"value": "model,test,pink",
+											"type": "text"
+										},
+										{
+											"key": "Description",
+											"value": "A test model for postman",
+											"type": "text"
+										},
+										{
+											"key": "ModelFile",
+											"type": "file",
+											"src": "postman-cloud:///1eff41e1-a4b3-4f70-baa3-59fa287ef607"
+										},
+										{
+											"key": "PreviewFile",
+											"type": "file",
+											"src": "postman-cloud:///1eff41e2-e2de-4290-8e4d-0f606cabb857"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}WebPortal/UploadModel",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"UploadModel"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateModel Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"TestModelUpdated\",\r\n  \"description\": \"An updated test model for postman\",\r\n  \"tagString\": \"model,pink,low poly\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}AdminPortal/UpdateModel/{{ModelId}}",
+									"host": [
+										"{{URL}}AdminPortal"
+									],
+									"path": [
+										"UpdateModel",
+										"{{ModelId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteModel",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}WebPortal/DeleteModel?id={{ModelId}}",
+									"host": [
+										"{{URL}}WebPortal"
+									],
+									"path": [
+										"DeleteModel"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{ModelId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateTag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is a valid integer greater than 0\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.environment.set(\"TagName\", responseJson.name);\r",
+											"    pm.environment.set(\"TagId\", responseJson.id);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"testTAG\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}Tag/CreateTag",
+									"host": [
+										"{{URL}}Tag"
+									],
+									"path": [
+										"CreateTag"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetTagIdsFromNames",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"testTAG\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}Tag/CheckTags?tags={{tagName}}",
+									"host": [
+										"{{URL}}Tag"
+									],
+									"path": [
+										"CheckTags"
+									],
+									"query": [
+										{
+											"key": "tags",
+											"value": "{{tagName}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteTag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}Tag/DeleteTag/{{TagId}}",
+									"host": [
+										"{{URL}}Tag"
+									],
+									"path": [
+										"DeleteTag",
+										"{{TagId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Log out",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}User/LogOutUser",
+									"host": [
+										"{{URL}}User"
+									],
+									"path": [
+										"LogOutUser"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
